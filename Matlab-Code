@@ -1,3 +1,78 @@
+%Part 1
+Ts=0.5;
+T_end=50;
+t=0:Ts:T_end;
+f=0.05;
+A=10;
+u=A*sin(2*pi*f*t);
+y=TotalBaroreflexArc(u,'n');
+figure
+subplot(2,1,1)
+plot(t,u)
+title('Carotide Sinus Pressure Input')
+xlabel('Time (sec)')
+ylabel('Pressure') 
+%output plotting
+t_y=(0:length(y)-1)*Ts;
+subplot(2,1,2)
+plot(t_y,y)
+title('Arterial Pressure Output')
+xlabel('Time (sec)')
+ylabel('Pressure')
+%linearity testing
+u1=10*sin(2*pi*0.05*t);
+u2=8*sin(2*pi*0.10*t);
+%used Asin(2*pift) equation
+y1=TotalBaroreflexArc(u1,'n');
+y2=TotalBaroreflexArc(u2,'n');
+u_sum=u1+u2;
+y_sum=TotalBaroreflexArc(u_sum,'n');
+%convert to column vectors due to different lengths
+y1=y1(:);
+y2=y(:);
+y2=y2(:);
+y_sum=y_sum(:);
+L=min([length(y1),length(y2),length(y_sum)]);
+y1=y1(1:L);
+y2=y2(1:L);
+y_sum=y_sum(1:L);
+lineart=(0:L-1)*Ts;
+figure
+plot(lineart,y_sum,'k','LineWidth',1.5)
+plot(lineart,y_sum,'k',lineart,y1+y2,'--r')
+legend('y(u1+u2)','y1+y2')
+title('Linearity Test')
+xlabel('Time (sec)')
+ylabel('Arterial Pressure')
+%(a) The system is linear based on the graph demonstrating close range. 
+%Determining time-invariance
+shift=10;
+shiftsamples=round(shift/Ts);
+ushift=[zeros(1,shiftsamples),u(1:end-shiftsamples)];
+y_original=TotalBaroreflexArc(u,'n');
+y_shift=TotalBaroreflexArc(ushift,'n');
+y_original=y_original(:);
+y_shift=y_shift(:);
+L=min(length(y_original),length(y_shift));
+y_original=y_original(1:L);
+y_shift=y_shift(1:L);
+yoriginalshifted=[zeros(shiftsamples,1);y_original(1:end-shiftsamples)];
+tvector=(0:L-1)*Ts;
+figure
+%Double checking same lengths
+length(y_shift)
+length(yoriginalshifted)
+%Plotting
+plot(tvector,y_shift,'k',tvector,yoriginalshifted,'--r')
+legend('Output of shifted input','Shifted Original Output')
+title('Time Invariance Test')
+xlabel('Time (sec)')
+ylabel('Pressure')
+%(b)Graph demonstrates the system is time-invariant.
+%(c) If the system is not linear or time-invariant it can be considered an LTI system under certain conditions.
+%(d) The difference between biological systems and systems defined by mathematical equations is that mathematical equations rely on an ideal system. Real biological systems tend to be non-linear and time-vary, making it more difficult to predict, while mathematical systems are typically LTI systems. 
+
+%Part 2
 clear
 load('ecg.mat'); load('ecgfilter.mat');
 
