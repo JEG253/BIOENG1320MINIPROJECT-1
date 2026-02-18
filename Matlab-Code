@@ -1,5 +1,5 @@
 % BioE1320 MiniProject1
-% by <John Gamal, [Insert Name]>
+% by <John Gamal, Pau Campos>
 % on <02/18/2026>
 
 %% PART 1
@@ -12,14 +12,14 @@ u=A*sin(2*pi*f*t);
 y=TotalBaroreflexArc(u,'n');
 figure(1)
 subplot(2,1,1)
-plot(t,u)
+plot(t,u,'c')
 title('Carotide Sinus Pressure Input')
 xlabel('Time (sec)')
 ylabel('Pressure') 
 %output plotting
 t_y=(0:length(y)-1)*Ts;
 subplot(2,1,2)
-plot(t_y,y)
+plot(t_y,y,'c')
 title('Arterial Pressure Output')
 xlabel('Time (sec)')
 ylabel('Pressure')
@@ -42,8 +42,8 @@ y2=y2(1:L);
 y_sum=y_sum(1:L);
 lineart=(0:L-1)*Ts;
 figure(2)
-plot(lineart,y_sum,'k','LineWidth',1.5)
-plot(lineart,y_sum,'k',lineart,y1+y2,'--r')
+plot(lineart,y_sum,'c','LineWidth',1.5)
+plot(lineart,y_sum,'c',lineart,y1+y2,'--r')
 legend('y(u1+u2)','y1+y2')
 title('Linearity Test')
 xlabel('Time (sec)')
@@ -67,7 +67,7 @@ figure(3)
 length(y_shift);
 length(yoriginalshifted);
 %Plotting
-plot(tvector,y_shift,'k',tvector,yoriginalshifted,'--r')
+plot(tvector,y_shift,'c',tvector,yoriginalshifted,'--r')
 legend('Output of shifted input','Shifted Original Output')
 title('Time Invariance Test')
 xlabel('Time (sec)')
@@ -77,7 +77,7 @@ ylabel('Pressure')
 %(d) The difference between biological systems and systems defined by mathematical equations is that mathematical equations rely on an ideal system. Real biological systems tend to be non-linear and time-vary, making it more difficult to predict, while mathematical systems are typically LTI systems.
 
 
-%% PART 2
+%% Part 2
 
 load('ecg.mat'); load('ecgfilter.mat');
 
