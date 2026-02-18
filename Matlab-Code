@@ -1,4 +1,8 @@
-%%Part 1
+% BioE1320 MiniProject1
+% by <John Gamal, [Insert Name]>
+% on <02/18/2026>
+
+%% PART 1
 Ts=0.5;
 T_end=50;
 t=0:Ts:T_end;
@@ -6,7 +10,7 @@ f=0.05;
 A=10;
 u=A*sin(2*pi*f*t);
 y=TotalBaroreflexArc(u,'n');
-figure
+figure(1)
 subplot(2,1,1)
 plot(t,u)
 title('Carotide Sinus Pressure Input')
@@ -37,7 +41,7 @@ y1=y1(1:L);
 y2=y2(1:L);
 y_sum=y_sum(1:L);
 lineart=(0:L-1)*Ts;
-figure
+figure(2)
 plot(lineart,y_sum,'k','LineWidth',1.5)
 plot(lineart,y_sum,'k',lineart,y1+y2,'--r')
 legend('y(u1+u2)','y1+y2')
@@ -58,10 +62,10 @@ y_original=y_original(1:L);
 y_shift=y_shift(1:L);
 yoriginalshifted=[zeros(shiftsamples,1);y_original(1:end-shiftsamples)];
 tvector=(0:L-1)*Ts;
-figure
+figure(3)
 %Double checking same lengths
-length(y_shift)
-length(yoriginalshifted)
+length(y_shift);
+length(yoriginalshifted);
 %Plotting
 plot(tvector,y_shift,'k',tvector,yoriginalshifted,'--r')
 legend('Output of shifted input','Shifted Original Output')
@@ -70,9 +74,10 @@ xlabel('Time (sec)')
 ylabel('Pressure')
 %(b)Graph demonstrates the system is time-invariant.
 %(c) If the system is not linear or time-invariant it can be considered an LTI system under certain conditions.
-%(d) The difference between biological systems and systems defined by mathematical equations is that mathematical equations rely on an ideal system. Real biological systems tend to be non-linear and time-vary, making it more difficult to predict, while mathematical systems are typically LTI systems. 
+%(d) The difference between biological systems and systems defined by mathematical equations is that mathematical equations rely on an ideal system. Real biological systems tend to be non-linear and time-vary, making it more difficult to predict, while mathematical systems are typically LTI systems.
 
-%%Part 2
+
+%% PART 2
 
 load('ecg.mat'); load('ecgfilter.mat');
 
@@ -126,7 +131,7 @@ T2_Wave = t1 >= T2wave_start & t1 <= T2wave_end;
 P2_Wave = t1 >= P2wave_start & t1 <= P2wave_end;
 QRS2    = t1 >= QRS2_start & t1 <= QRS2_end;
 
-figure(2)
+figure(4)
 t = tiledlayout(2,2);
 title(t,'ECG Waveform Analysis: Clean and Filtered Clean Signals')
 
@@ -187,7 +192,7 @@ lgd = legend([h1 h2 h3 h4], ...
 
 lgd.Layout.Tile = 'east'; 
 
-figure(3)
+figure(5)
 t = tiledlayout(2,2);
 title(t,'ECG Waveform Analysis: Noisy and Filtered Noisy Signals')
 
